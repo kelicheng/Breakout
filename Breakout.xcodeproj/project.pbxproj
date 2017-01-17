@@ -16,6 +16,7 @@
 		E361B1F51E235A8E00A3FE95 /* BreakoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E361B1F41E235A8E00A3FE95 /* BreakoutViewController.swift */; };
 		E361B1F71E235AB000A3FE95 /* BreakoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E361B1F61E235AB000A3FE95 /* BreakoutView.swift */; };
 		E39238AE1E2867EA0062F2D2 /* SettingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E39238AD1E2867EA0062F2D2 /* SettingTableViewController.swift */; };
+		E3D8F9B31E2D72C300E02A75 /* BreakoutBehaviorDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D8F9B21E2D72C300E02A75 /* BreakoutBehaviorDelegate.swift */; };
 		E3DC4FED1E243C6C005C4ED3 /* BreakoutBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3DC4FEC1E243C6C005C4ED3 /* BreakoutBehavior.swift */; };
 /* End PBXBuildFile section */
 
@@ -31,6 +32,7 @@
 		E361B1F41E235A8E00A3FE95 /* BreakoutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BreakoutViewController.swift; sourceTree = "<group>"; };
 		E361B1F61E235AB000A3FE95 /* BreakoutView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BreakoutView.swift; sourceTree = "<group>"; };
 		E39238AD1E2867EA0062F2D2 /* SettingTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingTableViewController.swift; sourceTree = "<group>"; };
+		E3D8F9B21E2D72C300E02A75 /* BreakoutBehaviorDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BreakoutBehaviorDelegate.swift; sourceTree = "<group>"; };
 		E3DC4FEC1E243C6C005C4ED3 /* BreakoutBehavior.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BreakoutBehavior.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -72,6 +74,7 @@
 				E361B1F41E235A8E00A3FE95 /* BreakoutViewController.swift */,
 				E361B1F61E235AB000A3FE95 /* BreakoutView.swift */,
 				E3DC4FEC1E243C6C005C4ED3 /* BreakoutBehavior.swift */,
+				E3D8F9B21E2D72C300E02A75 /* BreakoutBehaviorDelegate.swift */,
 			);
 			path = Breakout;
 			sourceTree = "<group>";
@@ -161,6 +164,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E39238AE1E2867EA0062F2D2 /* SettingTableViewController.swift in Sources */,
+				E3D8F9B31E2D72C300E02A75 /* BreakoutBehaviorDelegate.swift in Sources */,
 				E361B1F51E235A8E00A3FE95 /* BreakoutViewController.swift in Sources */,
 				E361B1F71E235AB000A3FE95 /* BreakoutView.swift in Sources */,
 				E361B1F31E23575300A3FE95 /* ViewController.swift in Sources */,

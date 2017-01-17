@@ -9,8 +9,10 @@
 import UIKit
 
 class BreakoutView: UIView {
+    var score = 0
+    
     // ANIMATION
-    private let breakoutBehavior = BreakoutBehavior()
+    let breakoutBehavior = BreakoutBehavior()
     lazy var animator: UIDynamicAnimator = {
         let animator = UIDynamicAnimator(referenceView: self)
         return animator
@@ -68,7 +70,6 @@ class BreakoutView: UIView {
     var paddleLength = Settings.sharedInstance.paddleLength
     
     func setPaddle() {
-        print("set paddle")
         var frame = CGRect(origin: CGPoint.zero, size: CGSize(width: paddleLength, height: 10))
         frame.origin.y = bounds.size.height-CGFloat(10)
         paddle = UIView(frame: frame)

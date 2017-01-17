@@ -9,6 +9,7 @@
 import UIKit
 
 class BreakoutBehavior: UIDynamicBehavior, UICollisionBehaviorDelegate {
+    var breakoutBehaviorDelegate: BreakoutBehaviorDelegate?
     let gravity = UIGravityBehavior()
     lazy var collider: UICollisionBehavior = {
         // configure
@@ -42,24 +43,22 @@ class BreakoutBehavior: UIDynamicBehavior, UICollisionBehaviorDelegate {
         itemBehavior.addItem(item)
     }
     
-    //    func removeItem(item: UIDynamicItem) {
-    //    collisionBehavior.removeAllBoundaries()
-    //    collisionBehavior.items.forEach{ collisionBehavior.removeItem($0) }
-    //    collisionBehavior.items.forEach{ elasticBehavior.removeItem($0) }
-    //        collider.removeItem(item)
-    //        itemBehavior.removeItem(item)
-    //    }
-    
     func addBarrier(path: UIBezierPath, named name: String) {
         collider.removeBoundary(withIdentifier: name as NSCopying)
         collider.addBoundary(withIdentifier: name as NSCopying, for: path)
     }
+
+    func removeItems() {
+        collider.removeAllBoundaries()
+        collider.items.forEach{ collider.removeItem($0) }
+        collider.items.forEach{ itemBehavior.removeItem($0) }
+        numOfBricks = 0
+    }
     
-    //    func addWallBarrier(named name: String) {
-    //        collider.removeBoundary(withIdentifier: name as NSCopying)
-    //        collider.addBoundary(withIdentifier: name as NSCopying, from: CGPoint, to: CGPoint)
-    //    }
+ 
     func checkState() {
+//        TODO: fixing problem of ball disappears 
+        print("checking state")
         var allBallsFallOff = true
         if let view = dynamicAnimator?.referenceView as? BreakoutView {
             for ball in view.balls {
@@ -73,10 +72,16 @@ class BreakoutBehavior: UIDynamicBehavior, UICollisionBehaviorDelegate {
         
         if allBallsFallOff {
             print("game is over, lost")
+            if let delegate = breakoutBehaviorDelegate {
+                delegate.gameOver(playerWon: false)
+            }
         }
         
-        if numOfBricks == 0 {
+        else if numOfBricks == 0 {
             print("game is over, win")
+            if let delegate = breakoutBehaviorDelegate {
+                delegate.gameOver(playerWon: true)
+            }
         }
     }
     
@@ -86,29 +91,34 @@ class BreakoutBehavior: UIDynamicBehavior, UICollisionBehaviorDelegate {
             if idString.contains("brick") {
                 let index = idString.index(idString.startIndex, offsetBy: 5)
                 if let brickTag = Int(idString.substring(from: index)) {
-                    
-                    if let brickView = self.dynamicAnimator?.referenceView?.viewWithTag(brickTag) {
-                        //                        brickView.backgroundColor = UIColor.green
-                        if brickView.alpha == 1.0 {
-                            UIView.animate(withDuration: 0.4, delay: 0, options: UIViewAnimationOptions.curveLinear, animations: {
-                                brickView.alpha = 0.5
-                            }, completion: nil)
-                            
-                        } else if brickView.alpha == 0.5 {
-                            UIView.animate(withDuration: 0.4, delay: 0, options: UIViewAnimationOptions.curveLinear, animations: {
-                                brickView.alpha = 0.0
-                            }, completion: { _ in // add [unowned self] in
-                                self.numOfBricks -= 1
-                                brickView.removeFromSuperview()
-                                self.collider.removeBoundary(withIdentifier: identifier!)
+                    if let view = dynamicAnimator?.referenceView as? BreakoutView {
+                        if let brickView = view.viewWithTag(brickTag) {
+                            //                        brickView.backgroundColor = UIColor.green
+                            if brickView.alpha == 1.0 {
+                                UIView.animate(withDuration: 0.4, delay: 0, options: UIViewAnimationOptions.curveLinear, animations: {
+                                    brickView.alpha = 0.5
+                                }, completion: nil)
                                 
-                            })
+                            } else if brickView.alpha == 0.5 {
+                                UIView.animate(withDuration: 0.4, delay: 0, options: UIViewAnimationOptions.curveLinear, animations: {
+                                    brickView.alpha = 0.0
+                                }, completion: { [unowned self] completed in 
+                                    self.numOfBricks -= 1
+                                    brickView.removeFromSuperview()
+                                    self.collider.removeBoundary(withIdentifier: identifier!)
+                                    
+                                })
+                            }
+                            view.score += 10
+                            if let delegate = breakoutBehaviorDelegate {
+                                delegate.updateScore()
+                            }
+                            
                         }
-                        
                     }
                     
                 }
             }
         }}
-
+    
 }
